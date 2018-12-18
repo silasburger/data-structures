@@ -1,6 +1,6 @@
 const LinkedList = require('./linkedList')
 
-class Stack {
+class linkedListStack {
   constructor () { 
     this.myList = new LinkedList();
   }
@@ -26,4 +26,30 @@ class Stack {
   }
 }
 
-module.exports = Stack;
+class arrayStack {
+  constructor () { 
+    this.myList = new Array();
+  }
+
+  push(item) {
+    this.myList.push(item);
+  }
+
+  pop() {
+    const removed = this.myList.pop();
+    if(removed===undefined) {
+      const err = new Error('The list is already empty');
+      throw err;
+    }
+  }
+
+  peek() {
+    return this.myList[this.mylist.length - 1];
+  }
+
+  isEmpty() {
+    return Boolean(this.mylist.length);
+  }
+}
+
+module.exports = linkedListStack, arrayStack;
