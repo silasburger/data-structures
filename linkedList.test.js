@@ -125,3 +125,35 @@ describe('linkedList insertAt', function() {
     expect(list.tail.data).toEqual('second');
   });
 });
+
+describe('linkedList removeAt', function() {
+  beforeEach(function() {
+    list = new linkedList();
+  });
+  test("it should removeAt middle of list", function() {
+    list.append('first');
+    list.append('second');
+    list.append('third');
+    list.append('fourth');
+    list.append('fifth');
+    
+    expect(list.removeAt(1).data).toEqual('second');
+    expect(list.getAt(1).data).toEqual('third');
+  });
+  test("it should removeAt beginning of list", function() {
+    list.append('first');
+    list.append('second');
+    list.append('third');
+    list.append('fourth');
+    list.append('fifth');    
+    expect(list.removeAt(0).data).toEqual('first');
+    expect(list.getAt(0).data).toEqual('second');
+  });
+  test("it should removeAt for list with one node", function() {
+    list.append('first');   
+    expect(list.removeAt(0).data).toEqual('first');
+    expect(list.getAt(0)).toEqual(null);
+    expect(list.tail).toEqual(null);
+    expect(list.head).toEqual(null);
+  });
+});
