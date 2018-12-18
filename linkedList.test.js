@@ -51,14 +51,17 @@ describe('linkedList unshift', function() {
 describe('linkedList shift', function() {
   beforeEach(function() {
     list = new linkedList();
-    list.append('first');
-    list.append('second');
   });
   test("it should shift ", function() {
+    list.append('first');
+    list.append('second');
     list.unshift('okay');
     expect(list.head.data).toEqual('okay');
     expect(list.head.next.next.data).toEqual('second');
     expect(list.head.next.data).toEqual('first');
+  });
+  test("it should return null if you shift empy list", function() {
+    expect(list.shift()).toEqual(undefined);
   });
 });
 
@@ -85,6 +88,9 @@ describe('linkedList pop', function() {
     expect(list.pop().data).toEqual('first');
     expect(list.head).toEqual(null);
     expect(list.tail).toEqual(null);
+    expect(list.pop()).toEqual(undefined);
+  });
+  test("it return null if you pop an empty list", function() {
     expect(list.pop()).toEqual(undefined);
   });
 });
