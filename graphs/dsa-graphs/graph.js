@@ -18,7 +18,7 @@ class Graph {
 
   // this function accepts an array of Node instances and adds them to the nodes property on the graph
   addVertices(vertexArray) {
-    for (let vertex in vertexArray) {
+    for (let vertex of vertexArray) {
       this.nodes.add(vertex);
     }
     return this.nodes;
@@ -26,20 +26,42 @@ class Graph {
 
   // this function accepts two vertices and updates their adjacent values to include the other vertex
   addEdge(v1, v2) {
-
-
+    for(let node of this.nodes) {
+      if(node === v1) {
+        node.adjacent.add(v2);
+      }
+      if(node === v2) {
+        node.adjacent.add(v1);
+      }
+    }
   }
 
   // this function accepts two vertices and updates their adjacent values to remove the other vertex
-  removeEdge(v1, v2) {}
+  removeEdge(v1, v2) {
+    for(let node of this.nodes) {
+      if(node === v1) {
+        node.adjacent.delete(v2);
+      }
+      if(node === v2) {
+        node.adjacent.delete(v1);
+      }
+    }
+  }
 
   // this function accepts a vertex and removes it from the nodes property, it also updates any adjacency lists that include that vertex
-  removeVertex(vertex) {}
+  removeVertex(vertex) {
+    for(let node of this.nodes) {
+      if(node.adjacent.has(vertex)) {
+        node.delete(vertex);
+      }
+    }
+    this.nodes.delete(vertex);
+  }
 
   // this function returns an array of Node values using DFS
   depthFirstSearch(start, visited=new Set(), nodes=[]) {
     visited.add(start);
-    for(let node in start.adjacent) {
+    for(let node of start.adjacent) {
       if(visited.has(node)) {
         nodes = this.depthFirstSearch(node, visited, nodes);
       }
@@ -56,7 +78,7 @@ class Graph {
     while(queue.length) {
       const current = queue.shift();
       visited.add(current);
-      for(let node in current.adjacent) {
+      for(let node of current.adjacent) {
         if(!visited.has(node)) {
           visited.add(node);
         }
@@ -67,4 +89,53 @@ class Graph {
   }
 }
 
-module.exports = {Graph, Node}
+module.exports = {Graph, Node};
+
+// let graph = new Graph()
+// let a = new Node("A")
+// let b = new Node("B")
+// let c = new Node("C")
+// graph.addVertices([a,b])
+// graph.addVertex(c)
+// graph.nodes.has(a) // true
+// graph.nodes.has(b) // true
+// graph.nodes.has(c) // true
+
+
+// let graph = new Graph()
+// let a = new Node("A")
+// let b = new Node("B")
+// let c = new Node("C")
+// let d = new Node("D")
+// graph.addVertices([a, b, c, d])
+// graph.addEdge(a, b)
+// graph.addEdge(a, c)
+// graph.addEdge(b, d)
+// graph.addEdge(c, d)
+
+// a.adjacent // contains b and c
+// b.adjacent // contains a and d
+// c.adjacent // contains a and d
+// d.adjacent // contains b and c
+
+
+// let graph = new Graph()
+// let a = new Node("A")
+// let b = new Node("B")
+// let c = new Node("C")
+// let d = new Node("D")
+// graph.addVertices([a, b, c, d])
+// graph.addEdge(a, b)
+// graph.addEdge(a, c)
+// graph.addEdge(b, d)
+// graph.addEdge(c, d)
+
+// graph.removeEdge(b,a)
+// graph.removeEdge(c,d)
+
+
+// a.adjacent // does not contain b
+// b.adjacent // does not contain a
+
+// c.adjacent // does not contain d
+// d.adjacent // does not contain c
