@@ -52,7 +52,7 @@ class Graph {
   removeVertex(vertex) {
     for(let node of this.nodes) {
       if(node.adjacent.has(vertex)) {
-        node.delete(vertex);
+        node.adjacent.delete(vertex);
       }
     }
     this.nodes.delete(vertex);
@@ -93,7 +93,7 @@ module.exports = {Graph, Node};
 
 // let graph = new Graph()
 // let a = new Node("A")
-// let b = new Node("B")
+// let b = new Node("B")  
 // let c = new Node("C")
 // graph.addVertices([a,b])
 // graph.addVertex(c)
@@ -139,3 +139,63 @@ module.exports = {Graph, Node};
 
 // c.adjacent // does not contain d
 // d.adjacent // does not contain c
+
+
+// let graph = new Graph()
+// let a = new Node("A")
+// let b = new Node("B")
+// let c = new Node("C")
+// let d = new Node("D")
+// graph.addVertices([a, b, c, d])
+// graph.addEdge(a, b)
+// graph.addEdge(a, c)
+// graph.addEdge(b, d)
+// graph.addEdge(c, d)
+
+// graph.removeVertex(c)
+// graph.removeVertex(d)
+
+// graph.nodes.has(a) // true
+// graph.nodes.has(b) // true
+// graph.nodes.has(c) // false
+// graph.nodes.has(d) // false
+
+
+// let graph = new Graph()
+// let S = new Node('S');
+// let P = new Node('P');
+// let U = new Node('U');
+// let X = new Node('X');
+// let Q = new Node('Q');
+// let Y = new Node('Y');
+// let V = new Node('V');
+// let R = new Node('R');
+// let W = new Node('W');
+// let T = new Node('T');
+
+// graph.addVertices([S,P,U,X,Q,Y,V,R,W,T])
+
+// graph.addEdge(S, P);
+// graph.addEdge(S, U);
+
+// graph.addEdge(P, X);
+// graph.addEdge(U, X);
+
+// graph.addEdge(P, Q);
+// graph.addEdge(U, V);
+
+// graph.addEdge(X, Q);
+// graph.addEdge(X, Y);
+// graph.addEdge(X, V);
+
+// graph.addEdge(Q, R);
+// graph.addEdge(Y, R);
+
+// graph.addEdge(Y, W);
+// graph.addEdge(V, W);
+
+// graph.addEdge(R, T);
+// graph.addEdge(W, T);
+
+// // this is one option:
+// graph.depthFirstSearch(S) // ["S", "P", "U", "X", "Q", "V", "Y", "R", "W", "T"]
