@@ -13,7 +13,7 @@ class Tree {
 }
 
 class Node {
-  constructor(val, children) {
+  constructor(val, children=[]) {
     this.val = val;
     this.children = children;
   }
