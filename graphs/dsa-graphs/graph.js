@@ -26,11 +26,11 @@ class Graph {
 
   // this function accepts two vertices and updates their adjacent values to include the other vertex
   addEdge(v1, v2) {
-    for(let node of this.nodes) {
-      if(node === v1) {
+    for (let node of this.nodes) {
+      if (node === v1) {
         node.adjacent.add(v2);
       }
-      if(node === v2) {
+      if (node === v2) {
         node.adjacent.add(v1);
       }
     }
@@ -38,11 +38,11 @@ class Graph {
 
   // this function accepts two vertices and updates their adjacent values to remove the other vertex
   removeEdge(v1, v2) {
-    for(let node of this.nodes) {
-      if(node === v1) {
+    for (let node of this.nodes) {
+      if (node === v1) {
         node.adjacent.delete(v2);
       }
-      if(node === v2) {
+      if (node === v2) {
         node.adjacent.delete(v1);
       }
     }
@@ -50,8 +50,8 @@ class Graph {
 
   // this function accepts a vertex and removes it from the nodes property, it also updates any adjacency lists that include that vertex
   removeVertex(vertex) {
-    for(let node of this.nodes) {
-      if(node.adjacent.has(vertex)) {
+    for (let node of this.nodes) {
+      if (node.adjacent.has(vertex)) {
         node.adjacent.delete(vertex);
       }
     }
@@ -59,10 +59,10 @@ class Graph {
   }
 
   // this function returns an array of Node values using DFS
-  depthFirstSearch(start, visited=new Set(), nodes=[]) {
+  depthFirstSearch(start, visited = new Set(), nodes = []) {
     visited.add(start);
-    for(let node of start.adjacent) {
-      if(visited.has(node)) {
+    for (let node of start.adjacent) {
+      if (!visited.has(node)) {
         nodes = this.depthFirstSearch(node, visited, nodes);
       }
     }
@@ -75,21 +75,43 @@ class Graph {
     const queue = [start];
     const visited = new Set();
     const nodes = [];
-    while(queue.length) {
+    while (queue.length) {
       const current = queue.shift();
       visited.add(current);
-      for(let node of current.adjacent) {
-        if(!visited.has(node)) {
+      for (let node of current.adjacent) {
+        if (!visited.has(node)) {
           visited.add(node);
         }
       }
-      nodes.push(current); 
+      nodes.push(current);
     }
     return nodes;
   }
+
+  shortestPath(source, target) {
+    const visited = new Set();
+    const queue = [source];
+    const path = {};
+    let count = 1;
+    let previous;
+    let current;
+    while (queue.length) {
+      previous = current;
+      current = queue.shift();
+      count++
+      // path[current.value] = 
+      for (let node in current.adjacent) {
+        if (node === target) {
+          return count;
+        }
+        queue.push(node);
+      }
+    }
+  }
+
 }
 
-module.exports = {Graph, Node};
+module.exports = { Graph, Node };
 
 // let graph = new Graph()
 // let a = new Node("A")
@@ -199,3 +221,44 @@ module.exports = {Graph, Node};
 
 // // this is one option:
 // graph.depthFirstSearch(S) // ["S", "P", "U", "X", "Q", "V", "Y", "R", "W", "T"]
+
+
+// let graph = new Graph()
+// let S = new Node('S');
+// let P = new Node('P');
+// let U = new Node('U');
+// let X = new Node('X');
+// let Q = new Node('Q');
+// let Y = new Node('Y');
+// let V = new Node('V');
+// let R = new Node('R');
+// let W = new Node('W');
+// let T = new Node('T');
+
+// graph.addVertices([S,P,U,X,Q,Y,V,R,W,T])
+
+// graph.addEdge(S, P);
+// graph.addEdge(S, U);
+
+// graph.addEdge(P, X);
+// graph.addEdge(U, X);
+
+// graph.addEdge(P, Q);
+// graph.addEdge(U, V);
+
+// graph.addEdge(X, Q);
+// graph.addEdge(X, Y);
+// graph.addEdge(X, V);
+
+// graph.addEdge(Q, R);
+// graph.addEdge(Y, R);
+
+// graph.addEdge(Y, W);
+// graph.addEdge(V, W);
+
+// graph.addEdge(R, T);
+// graph.addEdge(W, T);
+
+// // this is one option:
+// graph.depthFirstSearch(S) // ["S", "U", "V", "W", "T", "R", "Q", "Y", "X", "P"]
+
