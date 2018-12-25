@@ -1,0 +1,6 @@
+class linkedList {
+  constructor() {
+    
+  }
+}
+
