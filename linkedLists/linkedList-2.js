@@ -58,10 +58,6 @@ class linkedList {
   }
 
   insertAt(idx, val) {
-    //0: call unshift
-    //middle: set idx -1 next to new node, set new node next to idx.
-    //node.length -1: push
-    //idx out of range throw err
     if(idx >= this.length || idx < 0) throw new Error('Idx is out of range');
     if(idx === undefined) throw new Error('Idx argument is invalid');
     if(idx === 0) this.unshift(val);
@@ -74,10 +70,6 @@ class linkedList {
   }
 
   removeAt(idx) {
-    //0: change head to be one further up
-    //this.length -1: set tail to one before
-    //middle: set idx -1 next to new node, set new node next to idx.
-    //idx out of range throw err
     let removedNode;
     let previousNode;
     if(idx >= this.length || idx < 0) throw new Error('Idx is out of range');
@@ -94,6 +86,18 @@ class linkedList {
     if(idx === this.length - 1) this.tail = previousNode;
     return removedNode;
   }
+
+  getAverage() {
+    let count = 0;
+    let sum = 0;
+    let current = this.head;
+    while(current) {
+      count += 1;
+      sum += current;
+      current = current.next;
+    }
+    return (sum / count);
+  }
 }
 
 
@@ -104,3 +108,7 @@ class Node {
   }
 }
 
+module.exports = {
+  Node, 
+  linkedList
+};
