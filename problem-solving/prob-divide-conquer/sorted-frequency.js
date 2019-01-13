@@ -9,11 +9,12 @@ function findLower(arr, num) {
     let lower = 0;
     let upper = arr.length - 1;
     let mid = Math.floor((lower + upper)/2);
-    while((arr[mid-1] !== num && arr[mid] === num) || lower < upper) {
+    while(!(arr[mid-1] !== num && arr[mid] === num) && lower < upper) {
         if(arr[mid] < num) lower = mid + 1;
         if(arr[mid] >= num) upper = mid - 1;
         mid = Math.floor((lower + upper)/2);
     }
+    if(arr[mid] !== num) return -1;  
     return mid;
 }
 
@@ -21,13 +22,11 @@ function findUpper(arr, num) {
     let lower = 0;
     let upper = arr.length - 1;
     let mid = Math.floor((lower + upper)/2);
-    while((arr[mid+1] !== num && arr[mid] === num) || lower < upper) {
+    while(!(arr[mid+1] !== num && arr[mid] === num) && lower < upper) {
         if(arr[mid] <= num) lower = mid + 1;
         if(arr[mid] > num) upper = mid - 1;
         mid = Math.floor((lower + upper)/2);
     }
-    
-    if(arr[mid] !== num) return -1; 
     return mid;
 }
 
