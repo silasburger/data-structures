@@ -1,40 +1,34 @@
 function sortedFrequency(arr, num) {
-  let pointer1 = 0;
-  let pointer2 = arr.length - 1;
-  let current = Math.floor((pointer1 + pointer2) / 2);
-  let lower;
-  let upper;
-  let loopCount = 0;
+    const first = findLower(arr, num);
+    if(first === -1) return -1;
+    const last = findUpper(arr, num);
+    return last - first + 1;
+}
 
-  if(!arr.length) return -1;
-  while(pointer1 < pointer2) {
-      if(arr[current-1] !== num && arr[current] === num) {
-          lower = current;
-          break;
-      }
-      if(arr[current] < num) pointer1 = current;
-      if(arr[current] >= num) pointer2 = current;
-      current = Math.floor((pointer1 + pointer2) / 2);
-      loopCount++;
-      if(loopCount > 1000) throw new Error('infinite loop');
-  }
+function findLower(arr, num) {
+    let lower = 0;
+    let upper = arr.length - 1;
+    let mid = Math.floor((lower + upper)/2);
+    while((arr[mid-1] !== num && arr[mid] === num) || lower < upper) {
+        if(arr[mid] < num) lower = mid + 1;
+        if(arr[mid] >= num) upper = mid - 1;
+        mid = Math.floor((lower + upper)/2);
+    }
+    return mid;
+}
 
-   pointer1 = 0;
-   pointer2 = arr.length - 1;
-   current = Math.floor((pointer1 + pointer2) / 2);
-
-  while(pointer1 < pointer2) {
-      if(arr[current+1] !== num && arr[current] === num) {
-          upper = current;
-          break;
-      }
-      if(arr[current] <= num) pointer1 = current;
-      if(arr[current] > num) pointer2 = current;
-      current = Math.floor((pointer1 + pointer2) / 2);
-      loopCount++;
-      if(loopCount > 1000) throw new Error('infinite loop');
-  }
-  return (upper - lower) + 1;
+function findUpper(arr, num) {
+    let lower = 0;
+    let upper = arr.length - 1;
+    let mid = Math.floor((lower + upper)/2);
+    while((arr[mid+1] !== num && arr[mid] === num) || lower < upper) {
+        if(arr[mid] <= num) lower = mid + 1;
+        if(arr[mid] > num) upper = mid - 1;
+        mid = Math.floor((lower + upper)/2);
+    }
+    
+    if(arr[mid] !== num) return -1; 
+    return mid;
 }
 
 
