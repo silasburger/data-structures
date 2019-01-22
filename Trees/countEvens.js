@@ -3,7 +3,7 @@ class Tree {
     this.root = root;
   }
   findInTree(val) {
-    this.root.find(val)
+    this.root.findDFS(val)
   }
   findInTreeBFS(val) {
     this.root.findBFS(val);
@@ -29,7 +29,7 @@ class Node {
     this.children = children;
   }
 
-  find(val) {
+  findDFS(val) {
     let toVisitStack = [this];
     while(toVisitStack.length !== 0) {
       let current = toVisitStack.pop();
