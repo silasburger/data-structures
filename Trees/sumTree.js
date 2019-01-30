@@ -52,7 +52,6 @@ class Node {
   }
   findBFS(val) {
     let toVisitStack = [this];
-    toVisitStack.push(val);
     while(toVisitStack.length !== 0) {
       let current = toVisitStack.shift();
       if(current.val === val) {
